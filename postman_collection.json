@@ -1,0 +1,236 @@
+{
+  "info": {
+    "name": "Doctor-Patient Admin API",
+    "description": "Collection for testing Doctor-Patient Management System Admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@hospital.com\",\n  \"password\": \"Admin@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/admin/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "admin", "login"]
+            }
+          }
+        },
+        {
+          "name": "Doctor Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"doctor@hospital.com\",\n  \"password\": \"Doctor@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/doctor/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "doctor", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Create Doctor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"doctor@hospital.com\",\n  \"password\": \"Doctor@123\",\n  \"name\": \"Dr. John Doe\",\n  \"speciality\": \"CARDIOLOGY\",\n  \"phone\": \"+1234567890\",\n  \"experienceYears\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "doctors"]
+            }
+          }
+        },
+        {
+          "name": "Get All Doctors",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/doctors",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "doctors"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Time Slots",
+      "item": [
+        {
+          "name": "Create Time Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{doctorToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slotDate\": \"2025-12-25\",\n  \"startTime\": \"09:00\",\n  \"endTime\": \"09:30\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/time-slots",
+              "host": ["{{baseUrl}}"],
+              "path": ["time-slots"]
+            }
+          }
+        },
+        {
+          "name": "Get My Slots",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{doctorToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/time-slots/my-slots",
+              "host": ["{{baseUrl}}"],
+              "path": ["time-slots", "my-slots"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public API",
+      "item": [
+        {
+          "name": "Get Doctors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/public/api/doctors?speciality=CARDIOLOGY",
+              "host": ["{{baseUrl}}"],
+              "path": ["public", "api", "doctors"],
+              "query": [
+                {
+                  "key": "speciality",
+                  "value": "CARDIOLOGY"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Available Slots",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/public/api/doctors/1/available-slots",
+              "host": ["{{baseUrl}}"],
+              "path": ["public", "api", "doctors", "1", "available-slots"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get All Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/analytics?limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    },
+    {
+      "key": "adminToken",
+      "value": ""
+    },
+    {
+      "key": "doctorToken",
+      "value": ""
+    }
+  ]
+}
